@@ -1,9 +1,8 @@
-var triviaControllers = angular.module('triviaControllers', ['firebase']);
+var triviaControllers = angular.module('triviaControllers', ['firebase', 'triviaServices']);
 
-triviaControllers.controller('QuestionListCtrl', ['$scope', '$firebase', function ($scope, $firebase) {
+triviaControllers.controller('QuestionListCtrl', ['$scope', 'FirebaseService', function ($scope, FirebaseService) {
 
-    var firebaseUrl = "https://luminous-fire-6758.firebaseio.com/questions";
-    $scope.questions = $firebase(new Firebase(firebaseUrl));
+    $scope.questions = FirebaseService.getAllQuestions();
 
     $scope.answerQuestion = function (question, selectedAnswer) {
         question.answered = true;
@@ -21,8 +20,8 @@ triviaControllers.controller('QuestionNewCtrl', ['$scope', '$firebase', '$locati
         $scope.question = {};
 
         $scope.persistQuestion = function (question) {
-            var firebaseUrl = "https://luminous-fire-6758.firebaseio.com/questions";
-            $scope.questions = $firebase(new Firebase(firebaseUrl));
+            $scope.questions = FirebaseService.getAllQuestions();
+
             $scope.questions.$add(question).then(function (ref) {
                 $location.url('/questions');
             });
@@ -32,9 +31,7 @@ triviaControllers.controller('QuestionNewCtrl', ['$scope', '$firebase', '$locati
 triviaControllers.controller('QuestionDetailCtrl', ['$scope', '$firebase', '$routeParams', '$location',
     function ($scope, $firebase, $routeParams, $location) {
 
-        var firebaseUrl = "https://luminous-fire-6758.firebaseio.com/questions/" +
-            $routeParams.questionId;
-        $scope.question = $firebase(new Firebase(firebaseUrl));
+        $scope.question = FirebaseService.getQuestion($routeParams.questionId)
 
         $scope.persistQuestion = function (question) {
             $scope.question.$update({
