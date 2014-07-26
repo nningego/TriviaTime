@@ -1,0 +1,25 @@
+<div>
+    <form name="questionForm" class="form-horizontal" role="search" novalidate ng-submit="questionForm.$valid && persistQuestion(question)">
+        <div class="form-group">
+            <label class="control-label">Question:</label>
+            <input type="text" class="form-control" ng-model="question.question" required>
+        </div>
+        <div class="form-group">
+            <label class="control-label">Answer Options1:</label>
+            <input type="text" class="form-control" ng-model="question.option1" required>
+            <label class="control-label">Answer Options2:</label>
+            <input type="text" class="form-control" ng-model="question.option2" required>
+        </div>
+        <div class="form-group">
+            <label class="control-label">Correct Answer:</label><br/>
+            <input type="radio" ng-model="question.answer" value="1" required>1
+            <input type="radio" ng-model="question.answer" value="2" required>2
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary">
+                <span class="glyphicon glyphicon-star"></span> Save Question
+            </button>
+        </div>
+    </form>
+    <a href="#/questions" class="pull-right">Back to all questions</a>
+</div>

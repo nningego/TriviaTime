@@ -1,0 +1,27 @@
+<div class="clearfix">
+    <a class="pull-right" href="#/questions/new">
+        <span class="glyphicon glyphicon-plus"></span>Add new question </a>
+</div>
+<ul>
+    <li ng-repeat="(id, question) in questions">
+
+        <div>
+            <div>
+                <i class="fa fa-smile-o fa-3x" ng-class="{active:question.answered && question.correct}"></i>
+                <i class="fa fa-frown-o fa-3x" ng-class="{active:question.answered && !question.correct}"></i>
+            </div>
+            <div class="pull-right"><a href="#/questions/{{id}}">Edit</a>
+                <a ng-click="deleteQuestion(id)">Delete</a>
+            </div>
+        </div>
+
+        <div>
+            <h4>{{question.question}}</h4>
+
+            <div><input type="radio" name="{{id}}-answer" ng-click="answerQuestion(question, '1')"/>{{question.option1}}
+            </div>
+            <div><input type="radio" name="{{id}}-answer" ng-click="answerQuestion(question, '2')"/>{{question.option2}}
+            </div>
+        </div>
+    </li>
+</ul>
